@@ -11,8 +11,12 @@ public class Player {
         this.board = boardBuilder.build();
     }
 
-    public boolean attack(Player opponent) {
-        return opponent.board.attack();
+    public void attack(Player opponent) {
+        System.out.println(name + " ataca a " + opponent.getName());
+        boolean stillHasShips = opponent.board.attack();
+        if (!stillHasShips) {
+            System.out.println(opponent.getName() + " ya no tiene barcos.");
+        }
     }
 
     public boolean hasShips() {
@@ -21,5 +25,9 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public void showBoard() {
+        System.out.println(name + " - " + board);
     }
 }
