@@ -9,20 +9,20 @@ public class Ship {
     private Long id;
 
     private String name;
+    private int number;
     private int size;
     private String specialFeature;
+    private int level;
     private int hits;
-
-    @ManyToOne
-    @JoinColumn(name = "board_id")
-    private Board board;
 
     public Ship() {}
 
-    public Ship(String name, int size, String specialFeature) {
+    public Ship(String name, int number, int size, String specialFeature, int level) {
         this.name = name;
+        this.number = number;
         this.size = size;
         this.specialFeature = specialFeature;
+        this.level = level;
         this.hits = 0;
     }
 
@@ -36,15 +36,9 @@ public class Ship {
 
     // Getters y Setters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public int getNumber() { return number; }
     public int getSize() { return size; }
-    public void setSize(int size) { this.size = size; }
     public String getSpecialFeature() { return specialFeature; }
-    public void setSpecialFeature(String specialFeature) { this.specialFeature = specialFeature; }
-    public int getHits() { return hits; }
-    public void setHits(int hits) { this.hits = hits; }
-    public Board getBoard() { return board; }
-    public void setBoard(Board board) { this.board = board; }
+    public int getLevel() { return level; }
 }
