@@ -1,47 +1,39 @@
 package application.model;
 
-import java.util.ArrayList;
+import jakarta.persistence.*;
 import java.util.List;
-import java.util.Random;
 
+@Entity
 public class Board {
-    private final int width;
-    private final int height;
-    private final List<Ship> ships;
-    private final Random random;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private int width;
+    private int height;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<Ship> ships;
+
+    public Board() {}
 
     public Board(int width, int height, List<Ship> ships) {
         this.width = width;
         this.height = height;
         this.ships = ships;
-        this.random = new Random();
-    }
-
-    public boolean attack() {
-        if (ships.isEmpty()) return false;
-
-        // Selecciona un barco aleatorio para atacar
-        int index = random.nextInt(ships.size());
-        Ship target = ships.get(index);
-        target.hit();
-
-        System.out.println("¡Barco atacado! " + target);
-
-        // Elimina el barco si está hundido
-        if (target.isSunk()) {
-            ships.remove(index);
-            System.out.println("¡Barco hundido!");
-        }
-
-        return !ships.isEmpty();
     }
 
     public boolean hasShips() {
-        return !ships.isEmpty();
+        return ships != null && !ships.isEmpty();
     }
 
-    @Override
-    public String toString() {
-        return "Board{width=" + width + ", height=" + height + ", ships=" + ships + "}";
-    }
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public int getWidth() { return width; }
+    public void setWidth(int width) { this.width = width; }
+    public int getHeight() { return height; }
+    public void setHeight(int height) { this.height = height; }
+    public List<Ship> getShips() { return ships; }
+    public void setShips(List<Ship> ships) { this.ships = ships; }
 }
