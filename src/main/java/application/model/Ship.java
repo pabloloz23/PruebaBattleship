@@ -1,15 +1,28 @@
 package application.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Ship {
-    private final String name;
-    private final int size;
-    private final String specialFeature;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private int number;
+    private int size;
+    private String specialFeature;
+    private int level;
     private int hits;
 
-    public Ship(String name, int size, String specialFeature) {
+    public Ship() {}
+
+    public Ship(String name, int number, int size, String specialFeature, int level) {
         this.name = name;
+        this.number = number;
         this.size = size;
         this.specialFeature = specialFeature;
+        this.level = level;
         this.hits = 0;
     }
 
@@ -18,13 +31,14 @@ public class Ship {
     }
 
     public void hit() {
-        if (!isSunk()) {
-            hits++;
-        }
+        if (!isSunk()) hits++;
     }
 
-    @Override
-    public String toString() {
-        return "Ship{name='" + name + "', size=" + size + ", specialFeature='" + specialFeature + "', hits=" + hits + "}";
-    }
+    // Getters y Setters
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public int getNumber() { return number; }
+    public int getSize() { return size; }
+    public String getSpecialFeature() { return specialFeature; }
+    public int getLevel() { return level; }
 }

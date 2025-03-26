@@ -1,25 +1,35 @@
 package application.model;
 
-import application.builder.BoardBuilder;
+import jakarta.persistence.*;
 
+@Entity
 public class Player {
-    private final String name;
-    private final Board board;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Player(String name, BoardBuilder boardBuilder) {
+    private String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "board_id")
+    private Board board;
+
+    public Player() {}
+
+    public Player(String name, Board board) {
         this.name = name;
-        this.board = boardBuilder.build();
-    }
-
-    public boolean attack(Player opponent) {
-        return opponent.board.attack();
+        this.board = board;
     }
 
     public boolean hasShips() {
-        return board.hasShips();
+        return board != null && board.hasShips();
     }
 
-    public String getName() {
-        return name;
-    }
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public Board getBoard() { return board; }
+    public void setBoard(Board board) { this.board = board; }
 }
